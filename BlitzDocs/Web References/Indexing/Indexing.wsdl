@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.blitzdocs.net/Indexing.wsdl" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.blitzdocs.net/Indexing.wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.blitzdocs.net/Indexing.wsdl">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="IndexFileBase64">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="containsBarcodes" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="processUsingADR" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="folderId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="documentTypeListId" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="documentTypeId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="title" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="comments" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileContentType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiptCookie" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="impersonatedUserId" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="batchId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="document" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IndexFileBase64Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IndexFileBase64Result" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IndexDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="containsBarcodes" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="processUsingADR" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="folderId" nillable="true" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="documentTypeListId" nillable="true" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="documentTypeId" nillable="true" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="title" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="comments" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="status1" nillable="true" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="status2" nillable="true" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="userStatus" nillable="true" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileContentType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiptCookie" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="impersonatedUserId" nillable="true" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="batchId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="document" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachments" type="tns:ArrayOfDocumentAttachment" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfDocumentAttachment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DocumentAttachment" nillable="true" type="tns:DocumentAttachment" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DocumentAttachment">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="AttachmentTypeId" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Content" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" name="FileContentType" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="IndexDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IndexDocumentResult" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IndexDocumentAttachments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="folderId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="documentId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiptCookie" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="impersonatedUserId" nillable="true" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachments" type="tns:ArrayOfDocumentAttachment" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IndexDocumentAttachmentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IndexDocumentAttachmentsResult" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IndexFileDime">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="containsBarcodes" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="processUsingADR" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="folderId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="documentTypeListId" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="documentTypeId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="title" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="comments" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileContentType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiptCookie" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="impersonatedUserId" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="batchId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IndexFileDimeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IndexFileDimeResult" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IndexBatchFileDime">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="folderId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="documentTypeListId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="documentsInfo" type="tns:ArrayOfDocumentIndexingInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileContentType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiptCookie" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="impersonatedUserId" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="batchId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfDocumentIndexingInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DocumentIndexingInfo" nillable="true" type="tns:DocumentIndexingInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DocumentIndexingInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="StartPage" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="EndPage" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="DocumentTypeId" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="FolderId" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Comments" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Status1" nillable="true" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="Status2" nillable="true" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserStatus" nillable="true" type="s:short" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="IndexBatchFileDimeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IndexBatchFileDimeResult" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IndexBatchFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="folderId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="documentTypeListId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="documentsInfo" type="tns:ArrayOfDocumentIndexingInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileContentType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiptCookie" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="impersonatedUserId" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="batchId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="file" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IndexBatchFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IndexBatchFileResult" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetResults">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="indexTrackingId" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetResultsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetResultsResult" type="tns:IndexingResults" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="IndexingResults">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Status" type="tns:IndexingStatus" />
+          <s:element minOccurs="1" maxOccurs="1" name="Severity" type="tns:IndexFileSeverity" />
+          <s:element minOccurs="0" maxOccurs="1" name="Documents" type="tns:ArrayOfIndexingDocument" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="IndexingStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="Pending" />
+          <s:enumeration value="Processing" />
+          <s:enumeration value="Errored" />
+          <s:enumeration value="PartiallyCompleted" />
+          <s:enumeration value="Completed" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="IndexFileSeverity">
+        <s:restriction base="s:string">
+          <s:enumeration value="NotSet" />
+          <s:enumeration value="None" />
+          <s:enumeration value="Trivial" />
+          <s:enumeration value="Fixable" />
+          <s:enumeration value="Unfixable" />
+          <s:enumeration value="Fixed" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfIndexingDocument">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="IndexingDocument" nillable="true" type="tns:IndexingDocument" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="IndexingDocument">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="StartPage" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="EndPage" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="Status" type="tns:IndexingDocumentStatus" />
+          <s:element minOccurs="1" maxOccurs="1" name="FolderId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DocumentId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="IndexingDocumentStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="ToBeProcessed" />
+          <s:enumeration value="Completed" />
+          <s:enumeration value="Errored" />
+          <s:enumeration value="Skipped" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetResultsEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="indexTrackingId" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="impersonatedUserId" nillable="true" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetResultsExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetResultsExResult" type="tns:IndexingResults" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="IndexFileBase64SoapIn">
+    <wsdl:part name="parameters" element="tns:IndexFileBase64" />
+  </wsdl:message>
+  <wsdl:message name="IndexFileBase64SoapOut">
+    <wsdl:part name="parameters" element="tns:IndexFileBase64Response" />
+  </wsdl:message>
+  <wsdl:message name="IndexDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:IndexDocument" />
+  </wsdl:message>
+  <wsdl:message name="IndexDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:IndexDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="IndexDocumentAttachmentsSoapIn">
+    <wsdl:part name="parameters" element="tns:IndexDocumentAttachments" />
+  </wsdl:message>
+  <wsdl:message name="IndexDocumentAttachmentsSoapOut">
+    <wsdl:part name="parameters" element="tns:IndexDocumentAttachmentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IndexFileDimeSoapIn">
+    <wsdl:part name="parameters" element="tns:IndexFileDime" />
+  </wsdl:message>
+  <wsdl:message name="IndexFileDimeSoapOut">
+    <wsdl:part name="parameters" element="tns:IndexFileDimeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IndexBatchFileDimeSoapIn">
+    <wsdl:part name="parameters" element="tns:IndexBatchFileDime" />
+  </wsdl:message>
+  <wsdl:message name="IndexBatchFileDimeSoapOut">
+    <wsdl:part name="parameters" element="tns:IndexBatchFileDimeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IndexBatchFileSoapIn">
+    <wsdl:part name="parameters" element="tns:IndexBatchFile" />
+  </wsdl:message>
+  <wsdl:message name="IndexBatchFileSoapOut">
+    <wsdl:part name="parameters" element="tns:IndexBatchFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetResultsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetResults" />
+  </wsdl:message>
+  <wsdl:message name="GetResultsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetResultsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetResultsExSoapIn">
+    <wsdl:part name="parameters" element="tns:GetResultsEx" />
+  </wsdl:message>
+  <wsdl:message name="GetResultsExSoapOut">
+    <wsdl:part name="parameters" element="tns:GetResultsExResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IndexingSoap">
+    <wsdl:operation name="IndexFileBase64">
+      <wsdl:input message="tns:IndexFileBase64SoapIn" />
+      <wsdl:output message="tns:IndexFileBase64SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IndexDocument">
+      <wsdl:input message="tns:IndexDocumentSoapIn" />
+      <wsdl:output message="tns:IndexDocumentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IndexDocumentAttachments">
+      <wsdl:input message="tns:IndexDocumentAttachmentsSoapIn" />
+      <wsdl:output message="tns:IndexDocumentAttachmentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IndexFileDime">
+      <wsdl:input message="tns:IndexFileDimeSoapIn" />
+      <wsdl:output message="tns:IndexFileDimeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IndexBatchFileDime">
+      <wsdl:input message="tns:IndexBatchFileDimeSoapIn" />
+      <wsdl:output message="tns:IndexBatchFileDimeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IndexBatchFile">
+      <wsdl:input message="tns:IndexBatchFileSoapIn" />
+      <wsdl:output message="tns:IndexBatchFileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetResults">
+      <wsdl:input message="tns:GetResultsSoapIn" />
+      <wsdl:output message="tns:GetResultsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetResultsEx">
+      <wsdl:input message="tns:GetResultsExSoapIn" />
+      <wsdl:output message="tns:GetResultsExSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IndexingHttpGet" />
+  <wsdl:portType name="IndexingHttpPost" />
+  <wsdl:binding name="IndexingSoap" type="tns:IndexingSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IndexFileBase64">
+      <soap:operation soapAction="http://www.blitzdocs.net/Indexing.wsdl/IndexFileBase64" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IndexDocument">
+      <soap:operation soapAction="http://www.blitzdocs.net/Indexing.wsdl/IndexDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IndexDocumentAttachments">
+      <soap:operation soapAction="http://www.blitzdocs.net/Indexing.wsdl/IndexDocumentAttachments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IndexFileDime">
+      <soap:operation soapAction="http://www.blitzdocs.net/Indexing.wsdl/IndexFileDime" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IndexBatchFileDime">
+      <soap:operation soapAction="http://www.blitzdocs.net/Indexing.wsdl/IndexBatchFileDime" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IndexBatchFile">
+      <soap:operation soapAction="http://www.blitzdocs.net/Indexing.wsdl/IndexBatchFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetResults">
+      <soap:operation soapAction="http://www.blitzdocs.net/Indexing.wsdl/GetResults" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetResultsEx">
+      <soap:operation soapAction="http://www.blitzdocs.net/Indexing.wsdl/GetResultsEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="IndexingSoap12" type="tns:IndexingSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IndexFileBase64">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Indexing.wsdl/IndexFileBase64" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IndexDocument">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Indexing.wsdl/IndexDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IndexDocumentAttachments">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Indexing.wsdl/IndexDocumentAttachments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IndexFileDime">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Indexing.wsdl/IndexFileDime" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IndexBatchFileDime">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Indexing.wsdl/IndexBatchFileDime" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IndexBatchFile">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Indexing.wsdl/IndexBatchFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetResults">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Indexing.wsdl/GetResults" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetResultsEx">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Indexing.wsdl/GetResultsEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="IndexingHttpGet" type="tns:IndexingHttpGet">
+    <http:binding verb="GET" />
+  </wsdl:binding>
+  <wsdl:binding name="IndexingHttpPost" type="tns:IndexingHttpPost">
+    <http:binding verb="POST" />
+  </wsdl:binding>
+  <wsdl:service name="Indexing">
+    <wsdl:port name="IndexingSoap" binding="tns:IndexingSoap">
+      <soap:address location="https://stage.blitzdocs.net/services/Indexing.asmx" />
+    </wsdl:port>
+    <wsdl:port name="IndexingSoap12" binding="tns:IndexingSoap12">
+      <soap12:address location="https://stage.blitzdocs.net/services/Indexing.asmx" />
+    </wsdl:port>
+    <wsdl:port name="IndexingHttpGet" binding="tns:IndexingHttpGet">
+      <http:address location="https://stage.blitzdocs.net/services/Indexing.asmx" />
+    </wsdl:port>
+    <wsdl:port name="IndexingHttpPost" binding="tns:IndexingHttpPost">
+      <http:address location="https://stage.blitzdocs.net/services/Indexing.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

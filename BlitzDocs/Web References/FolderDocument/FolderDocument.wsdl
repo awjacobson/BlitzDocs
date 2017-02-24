@@ -1,0 +1,700 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.blitzdocs.net/FolderDocument.wsdl" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.blitzdocs.net/FolderDocument.wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.blitzdocs.net/FolderDocument.wsdl">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="GetDocumentDime">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="folderId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="documentId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentDimeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDocumentDimeResult" type="tns:DocumentProxy" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DocumentProxy">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BlitzDocsComponentProxy">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ContentTypeId" type="s:short" />
+              <s:element minOccurs="0" maxOccurs="1" name="CreatedByLoginId" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="CreatedByUserId" type="s1:guid" />
+              <s:element minOccurs="1" maxOccurs="1" name="CreatedDate" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="FileSize" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsBlitzDocsPdf" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsLockedForEdit" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsLockedForView" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsLockedForPrint" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsInvalidPdf" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsUnlockedPdf" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="HasPageImagesCreated" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="LastUpdate" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="PageCount" type="s:short" />
+              <s:element minOccurs="1" maxOccurs="1" name="SourceType" type="tns:DocumentSourceType" />
+              <s:element minOccurs="1" maxOccurs="1" name="StorageStatus" type="tns:PrimaryDocumentStorageStatus" />
+              <s:element minOccurs="1" maxOccurs="1" name="StorageVolumeId" type="s:short" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BlitzDocsComponentProxy" abstract="true">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BlitzDataComponentProxy" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BlitzDataComponentProxy" abstract="true">
+        <s:attribute name="DataState" type="tns:DataStateType" use="required" />
+      </s:complexType>
+      <s:simpleType name="DataStateType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Deleted" />
+          <s:enumeration value="Detached" />
+          <s:enumeration value="Modified" />
+          <s:enumeration value="Unchanged" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="DocumentSourceType">
+        <s:restriction base="s:string">
+          <s:enumeration value="NotSet" />
+          <s:enumeration value="Fax" />
+          <s:enumeration value="Scan" />
+          <s:enumeration value="Upload" />
+          <s:enumeration value="Indexed" />
+          <s:enumeration value="Import" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="PrimaryDocumentStorageStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="NotSet" />
+          <s:enumeration value="Pending" />
+          <s:enumeration value="Completed" />
+          <s:enumeration value="ToBeDeleted" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="folderId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="documentId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDocumentResult" type="tns:GetDocumentResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GetDocumentResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Document" type="tns:DocumentProxy" />
+          <s:element minOccurs="0" maxOccurs="1" name="Content" type="s:base64Binary" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetDocumentContent">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="folderId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="documentId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentContentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDocumentContentResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Delete">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="folderId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="documentId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DeleteResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="folderId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="documentId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetResult" type="tns:FolderDocumentProxy" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FolderDocumentProxy">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BlitzDocsComponentProxy">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="AddedByLoginId" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="AddedByUserId" type="s1:guid" />
+              <s:element minOccurs="1" maxOccurs="1" name="AddedDate" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Comment" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="DocumentId" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="DocumentTypeId" type="s:short" />
+              <s:element minOccurs="1" maxOccurs="1" name="FolderId" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsDeleted" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="LastUpdate" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="SecurityId" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Status1" type="s:short" />
+              <s:element minOccurs="1" maxOccurs="1" name="Status2" type="s:short" />
+              <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="Update">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="folderDocumentProxy" type="tns:FolderDocumentProxy" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateProperties">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="folderId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="documentId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="documentTypeId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="title" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="comment" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="securityId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="status1" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="status2" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="isDeleted" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePropertiesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdatePropertiesResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DocumentProxy" nillable="true" type="tns:DocumentProxy" />
+      <s:element name="GetDocumentResult" nillable="true" type="tns:GetDocumentResult" />
+      <s:element name="base64Binary" nillable="true" type="s:base64Binary" />
+      <s:element name="int" type="s:int" />
+      <s:element name="FolderDocumentProxy" nillable="true" type="tns:FolderDocumentProxy" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetDocumentDimeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDocumentDime" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentDimeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDocumentDimeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDocument" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentContentSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDocumentContent" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentContentSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDocumentContentResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteSoapIn">
+    <wsdl:part name="parameters" element="tns:Delete" />
+  </wsdl:message>
+  <wsdl:message name="DeleteSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSoapIn">
+    <wsdl:part name="parameters" element="tns:Get" />
+  </wsdl:message>
+  <wsdl:message name="GetSoapOut">
+    <wsdl:part name="parameters" element="tns:GetResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateSoapIn">
+    <wsdl:part name="parameters" element="tns:Update" />
+  </wsdl:message>
+  <wsdl:message name="UpdateSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePropertiesSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateProperties" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePropertiesSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdatePropertiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentDimeHttpGetIn">
+    <wsdl:part name="folderId" type="s:string" />
+    <wsdl:part name="documentId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentDimeHttpGetOut">
+    <wsdl:part name="Body" element="tns:DocumentProxy" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentHttpGetIn">
+    <wsdl:part name="folderId" type="s:string" />
+    <wsdl:part name="documentId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentHttpGetOut">
+    <wsdl:part name="Body" element="tns:GetDocumentResult" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentContentHttpGetIn">
+    <wsdl:part name="folderId" type="s:string" />
+    <wsdl:part name="documentId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentContentHttpGetOut">
+    <wsdl:part name="Body" element="tns:base64Binary" />
+  </wsdl:message>
+  <wsdl:message name="DeleteHttpGetIn">
+    <wsdl:part name="folderId" type="s:string" />
+    <wsdl:part name="documentId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DeleteHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="GetHttpGetIn">
+    <wsdl:part name="folderId" type="s:string" />
+    <wsdl:part name="documentId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHttpGetOut">
+    <wsdl:part name="Body" element="tns:FolderDocumentProxy" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePropertiesHttpGetIn">
+    <wsdl:part name="folderId" type="s:string" />
+    <wsdl:part name="documentId" type="s:string" />
+    <wsdl:part name="documentTypeId" type="s:string" />
+    <wsdl:part name="title" type="s:string" />
+    <wsdl:part name="comment" type="s:string" />
+    <wsdl:part name="securityId" type="s:string" />
+    <wsdl:part name="status1" type="s:string" />
+    <wsdl:part name="status2" type="s:string" />
+    <wsdl:part name="isDeleted" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePropertiesHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentDimeHttpPostIn">
+    <wsdl:part name="folderId" type="s:string" />
+    <wsdl:part name="documentId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentDimeHttpPostOut">
+    <wsdl:part name="Body" element="tns:DocumentProxy" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentHttpPostIn">
+    <wsdl:part name="folderId" type="s:string" />
+    <wsdl:part name="documentId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentHttpPostOut">
+    <wsdl:part name="Body" element="tns:GetDocumentResult" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentContentHttpPostIn">
+    <wsdl:part name="folderId" type="s:string" />
+    <wsdl:part name="documentId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentContentHttpPostOut">
+    <wsdl:part name="Body" element="tns:base64Binary" />
+  </wsdl:message>
+  <wsdl:message name="DeleteHttpPostIn">
+    <wsdl:part name="folderId" type="s:string" />
+    <wsdl:part name="documentId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DeleteHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="GetHttpPostIn">
+    <wsdl:part name="folderId" type="s:string" />
+    <wsdl:part name="documentId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHttpPostOut">
+    <wsdl:part name="Body" element="tns:FolderDocumentProxy" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePropertiesHttpPostIn">
+    <wsdl:part name="folderId" type="s:string" />
+    <wsdl:part name="documentId" type="s:string" />
+    <wsdl:part name="documentTypeId" type="s:string" />
+    <wsdl:part name="title" type="s:string" />
+    <wsdl:part name="comment" type="s:string" />
+    <wsdl:part name="securityId" type="s:string" />
+    <wsdl:part name="status1" type="s:string" />
+    <wsdl:part name="status2" type="s:string" />
+    <wsdl:part name="isDeleted" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePropertiesHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:portType name="FolderDocumentServiceSoap">
+    <wsdl:operation name="GetDocumentDime">
+      <wsdl:input message="tns:GetDocumentDimeSoapIn" />
+      <wsdl:output message="tns:GetDocumentDimeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocument">
+      <wsdl:input message="tns:GetDocumentSoapIn" />
+      <wsdl:output message="tns:GetDocumentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentContent">
+      <wsdl:input message="tns:GetDocumentContentSoapIn" />
+      <wsdl:output message="tns:GetDocumentContentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Delete">
+      <wsdl:input message="tns:DeleteSoapIn" />
+      <wsdl:output message="tns:DeleteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get">
+      <wsdl:input message="tns:GetSoapIn" />
+      <wsdl:output message="tns:GetSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Update">
+      <wsdl:input message="tns:UpdateSoapIn" />
+      <wsdl:output message="tns:UpdateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProperties">
+      <wsdl:input message="tns:UpdatePropertiesSoapIn" />
+      <wsdl:output message="tns:UpdatePropertiesSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="FolderDocumentServiceHttpGet">
+    <wsdl:operation name="GetDocumentDime">
+      <wsdl:input message="tns:GetDocumentDimeHttpGetIn" />
+      <wsdl:output message="tns:GetDocumentDimeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocument">
+      <wsdl:input message="tns:GetDocumentHttpGetIn" />
+      <wsdl:output message="tns:GetDocumentHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentContent">
+      <wsdl:input message="tns:GetDocumentContentHttpGetIn" />
+      <wsdl:output message="tns:GetDocumentContentHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Delete">
+      <wsdl:input message="tns:DeleteHttpGetIn" />
+      <wsdl:output message="tns:DeleteHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get">
+      <wsdl:input message="tns:GetHttpGetIn" />
+      <wsdl:output message="tns:GetHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProperties">
+      <wsdl:input message="tns:UpdatePropertiesHttpGetIn" />
+      <wsdl:output message="tns:UpdatePropertiesHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="FolderDocumentServiceHttpPost">
+    <wsdl:operation name="GetDocumentDime">
+      <wsdl:input message="tns:GetDocumentDimeHttpPostIn" />
+      <wsdl:output message="tns:GetDocumentDimeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocument">
+      <wsdl:input message="tns:GetDocumentHttpPostIn" />
+      <wsdl:output message="tns:GetDocumentHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentContent">
+      <wsdl:input message="tns:GetDocumentContentHttpPostIn" />
+      <wsdl:output message="tns:GetDocumentContentHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Delete">
+      <wsdl:input message="tns:DeleteHttpPostIn" />
+      <wsdl:output message="tns:DeleteHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get">
+      <wsdl:input message="tns:GetHttpPostIn" />
+      <wsdl:output message="tns:GetHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProperties">
+      <wsdl:input message="tns:UpdatePropertiesHttpPostIn" />
+      <wsdl:output message="tns:UpdatePropertiesHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="FolderDocumentServiceSoap" type="tns:FolderDocumentServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetDocumentDime">
+      <soap:operation soapAction="http://www.blitzdocs.net/FolderDocument.wsdl/GetDocumentDime" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocument">
+      <soap:operation soapAction="http://www.blitzdocs.net/FolderDocument.wsdl/GetDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentContent">
+      <soap:operation soapAction="http://www.blitzdocs.net/FolderDocument.wsdl/GetDocumentContent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Delete">
+      <soap:operation soapAction="http://www.blitzdocs.net/FolderDocument.wsdl/Delete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get">
+      <soap:operation soapAction="http://www.blitzdocs.net/FolderDocument.wsdl/Get" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Update">
+      <soap:operation soapAction="http://www.blitzdocs.net/FolderDocument.wsdl/Update" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProperties">
+      <soap:operation soapAction="http://www.blitzdocs.net/FolderDocument.wsdl/UpdateProperties" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="FolderDocumentServiceSoap12" type="tns:FolderDocumentServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetDocumentDime">
+      <soap12:operation soapAction="http://www.blitzdocs.net/FolderDocument.wsdl/GetDocumentDime" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocument">
+      <soap12:operation soapAction="http://www.blitzdocs.net/FolderDocument.wsdl/GetDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentContent">
+      <soap12:operation soapAction="http://www.blitzdocs.net/FolderDocument.wsdl/GetDocumentContent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Delete">
+      <soap12:operation soapAction="http://www.blitzdocs.net/FolderDocument.wsdl/Delete" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get">
+      <soap12:operation soapAction="http://www.blitzdocs.net/FolderDocument.wsdl/Get" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Update">
+      <soap12:operation soapAction="http://www.blitzdocs.net/FolderDocument.wsdl/Update" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProperties">
+      <soap12:operation soapAction="http://www.blitzdocs.net/FolderDocument.wsdl/UpdateProperties" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="FolderDocumentServiceHttpGet" type="tns:FolderDocumentServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="GetDocumentDime">
+      <http:operation location="/GetDocumentDime" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocument">
+      <http:operation location="/GetDocument" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentContent">
+      <http:operation location="/GetDocumentContent" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Delete">
+      <http:operation location="/Delete" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get">
+      <http:operation location="/Get" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProperties">
+      <http:operation location="/UpdateProperties" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="FolderDocumentServiceHttpPost" type="tns:FolderDocumentServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="GetDocumentDime">
+      <http:operation location="/GetDocumentDime" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocument">
+      <http:operation location="/GetDocument" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentContent">
+      <http:operation location="/GetDocumentContent" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Delete">
+      <http:operation location="/Delete" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get">
+      <http:operation location="/Get" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProperties">
+      <http:operation location="/UpdateProperties" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="FolderDocumentService">
+    <wsdl:port name="FolderDocumentServiceSoap" binding="tns:FolderDocumentServiceSoap">
+      <soap:address location="https://stage.blitzdocs.net/services/FolderDocument.asmx" />
+    </wsdl:port>
+    <wsdl:port name="FolderDocumentServiceSoap12" binding="tns:FolderDocumentServiceSoap12">
+      <soap12:address location="https://stage.blitzdocs.net/services/FolderDocument.asmx" />
+    </wsdl:port>
+    <wsdl:port name="FolderDocumentServiceHttpGet" binding="tns:FolderDocumentServiceHttpGet">
+      <http:address location="https://stage.blitzdocs.net/services/FolderDocument.asmx" />
+    </wsdl:port>
+    <wsdl:port name="FolderDocumentServiceHttpPost" binding="tns:FolderDocumentServiceHttpPost">
+      <http:address location="https://stage.blitzdocs.net/services/FolderDocument.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

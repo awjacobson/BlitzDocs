@@ -1,0 +1,1370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.blitzdocs.net/Folder.wsdl" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.blitzdocs.net/Folder.wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.blitzdocs.net/Folder.wsdl">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="AddFolderAlertsUsingConfiguration">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="folderId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="folderConfigurationId" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddFolderAlertsUsingConfigurationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddFolderAlertsUsingConfigurationResult" type="tns:ArrayOfFolderAlertProxy" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfFolderAlertProxy">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FolderAlertProxy" nillable="true" type="tns:FolderAlertProxy" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FolderAlertProxy">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BlitzDocsComponentProxy">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="CreatedByUserId" type="s1:guid" />
+              <s:element minOccurs="1" maxOccurs="1" name="CreatedDate" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="DeliveryType" type="tns:AlertDeliveryType" />
+              <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="EmailAddresses" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="EmailRecipientId" type="s:short" />
+              <s:element minOccurs="1" maxOccurs="1" name="FolderId" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsRecurrent" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsTardySignalled" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="LastUpdate" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="TardyDate" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="TardyTemplateId" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="TemplateId" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Url" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BlitzDocsComponentProxy" abstract="true">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BlitzDataComponentProxy" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BlitzDataComponentProxy" abstract="true">
+        <s:attribute name="DataState" type="tns:DataStateType" use="required" />
+      </s:complexType>
+      <s:simpleType name="DataStateType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Deleted" />
+          <s:enumeration value="Detached" />
+          <s:enumeration value="Modified" />
+          <s:enumeration value="Unchanged" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="AlertDeliveryType">
+        <s:restriction base="s:string">
+          <s:enumeration value="NotSet" />
+          <s:enumeration value="None" />
+          <s:enumeration value="Email" />
+          <s:enumeration value="HttpPost" />
+          <s:enumeration value="WebService" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="CreateUsingConfiguration">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="folderConfigurationId" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateUsingConfigurationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateUsingConfigurationResult" type="tns:FolderProxy" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FolderProxy">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BlitzDocsComponentProxy">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="CompanyId" type="s:short" />
+              <s:element minOccurs="0" maxOccurs="1" name="CreatedByLoginId" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="CreatedByUserId" type="s1:guid" />
+              <s:element minOccurs="1" maxOccurs="1" name="CreatedDate" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="DefaultDocumentSecurityId" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="DocumentTypeListId" type="s:short" />
+              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsDeleted" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="LastUpdate" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="SecurityId" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="CustomAttributes" type="tns:ArrayOfCustomAttribute" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfCustomAttribute">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CustomAttribute" nillable="true" type="tns:CustomAttribute" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CustomAttribute">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetFolderCreateForm">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="sourceDataType" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="impersonatedUserId" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiptCookie" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFolderCreateFormResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFolderCreateFormResult" type="tns:FolderCreateForm" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FolderCreateForm">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Action" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Method" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FormItems" type="tns:ArrayOfFormItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfFormItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FormItem" nillable="true" type="tns:FormItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FormItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ValueSource" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetFolderViewForm">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="folderId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="folderReferenceId" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="impersonatedUserId" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFolderViewFormResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFolderViewFormResult" type="tns:FolderCreateForm" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetByFolderReference">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="externalSystemId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="externalSystemFolderId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetByFolderReferenceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetByFolderReferenceResult" type="tns:FolderProxy" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentTypeList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="folderId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="filterByCreatable" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="organizeByStackingOrder" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="impersonatedUserId" nillable="true" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentTypeListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDocumentTypeListResult" type="tns:FolderDocumentTypeList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentsEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="folderId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="impersonatedUserId" nillable="true" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentsExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDocumentsExResult" type="tns:FolderDocuments" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="folderProxy" type="tns:FolderProxy" />
+            <s:element minOccurs="1" maxOccurs="1" name="impersonatedUserId" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="folderConfigurationId" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InsertExResult" type="tns:FolderProxy" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Search">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="searchValues" type="tns:ArrayOfSearchValue" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSearchValue">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SearchValue" nillable="true" type="tns:SearchValue" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SearchValue">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="AttributeId" type="s:unsignedByte" />
+          <s:element minOccurs="1" maxOccurs="1" name="Operator" type="tns:SearchValueOperators" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Values" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="SearchValueOperators">
+        <s:restriction base="s:string">
+          <s:enumeration value="Equals" />
+          <s:enumeration value="DoesNotEqual" />
+          <s:enumeration value="BeginsWith" />
+          <s:enumeration value="EndsWith" />
+          <s:enumeration value="Contains" />
+          <s:enumeration value="GreaterThan" />
+          <s:enumeration value="LessThan" />
+          <s:enumeration value="GreaterThanOrEquals" />
+          <s:enumeration value="LessThanOrEquals" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SearchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchResult" type="tns:ArrayOfFolderProxy" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfFolderProxy">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FolderProxy" nillable="true" type="tns:FolderProxy" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UpdateCustomAttribute">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="folderId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="attributeId" type="s:byte" />
+            <s:element minOccurs="0" maxOccurs="1" name="newValue" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateCustomAttributeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateCustomAttributeResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomAttributes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="attributeSetType" type="tns:FolderAttributeSetType" />
+            <s:element minOccurs="1" maxOccurs="1" name="folderId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="impersonatedUserId" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="FolderAttributeSetType">
+        <s:restriction base="s:string">
+          <s:enumeration value="CreateOrUpdate" />
+          <s:enumeration value="Search" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetCustomAttributesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCustomAttributesResult" type="tns:ExtendedAttributes" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Create">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="documentTypeListId" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateResult" type="tns:FolderProxy" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetResult" type="tns:FolderProxy" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocuments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDocumentsResult" type="tns:ArrayOfFolderDocumentProxy" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfFolderDocumentProxy">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FolderDocumentProxy" nillable="true" type="tns:FolderDocumentProxy" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FolderDocumentProxy">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BlitzDocsComponentProxy">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="AddedByLoginId" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="AddedByUserId" type="s1:guid" />
+              <s:element minOccurs="1" maxOccurs="1" name="AddedDate" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Comment" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="DocumentId" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="DocumentTypeId" type="s:short" />
+              <s:element minOccurs="1" maxOccurs="1" name="FolderId" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsDeleted" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="LastUpdate" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="SecurityId" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Status1" type="s:short" />
+              <s:element minOccurs="1" maxOccurs="1" name="Status2" type="s:short" />
+              <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="Update">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="folderProxy" type="tns:FolderProxy" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Insert">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="folderProxy" type="tns:FolderProxy" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InsertResult" type="tns:FolderProxy" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNotes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNotesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetNotesResult" type="tns:ArrayOfFolderNoteProxy" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfFolderNoteProxy">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FolderNoteProxy" nillable="true" type="tns:FolderNoteProxy" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FolderNoteProxy">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BlitzDocsComponentProxy">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="AddedByLoginId" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="AddedByUserId" type="s1:guid" />
+              <s:element minOccurs="0" maxOccurs="1" name="Content" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="CreatedDate" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="FolderId" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsDeleted" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="LastUpdate" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="SecurityId" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="ArrayOfFolderAlertProxy" nillable="true" type="tns:ArrayOfFolderAlertProxy" />
+      <s:element name="FolderProxy" nillable="true" type="tns:FolderProxy" />
+      <s:element name="int" type="s:int" />
+      <s:element name="ArrayOfFolderDocumentProxy" nillable="true" type="tns:ArrayOfFolderDocumentProxy" />
+      <s:element name="ArrayOfFolderNoteProxy" nillable="true" type="tns:ArrayOfFolderNoteProxy" />
+      <s:complexType name="ExtendedAttributes">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ExtendedAttribute" type="tns:ExtendedAttribute" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ExtendedAttribute">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Required" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="LookupListID" type="s:integer" />
+          <s:element minOccurs="0" maxOccurs="1" name="LookupList" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DefaultValue" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ValueList" type="tns:ValueList" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ValueList">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Items" type="tns:ValueListItems" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ValueListItems">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="unbounded" name="Item" type="tns:ValueListItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ValueListItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType id="FolderDocuments" name="FolderDocuments">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Document">
+            <s:complexType id="Document">
+              <s:sequence>
+                <s:element minOccurs="1" maxOccurs="1" name="AddedByLoginId" type="s:string" />
+                <s:element minOccurs="1" maxOccurs="1" name="AddedByUserId" type="s1:guid" />
+                <s:element minOccurs="1" maxOccurs="1" name="AddedDate" type="s:dateTime" />
+                <s:element minOccurs="1" maxOccurs="1" name="Comment" type="s:string" />
+                <s:element minOccurs="1" maxOccurs="1" name="ContentTypeExtension" type="s:string" />
+                <s:element minOccurs="1" maxOccurs="1" name="ContentTypeId" type="s:short" />
+                <s:element minOccurs="1" maxOccurs="1" name="DocumentId" type="s:int" />
+                <s:element minOccurs="1" maxOccurs="1" name="DocumentTypeId" type="s:short" />
+                <s:element minOccurs="1" maxOccurs="1" name="IsDeleted" type="s:string" />
+                <s:element minOccurs="1" maxOccurs="1" name="Status1" type="s:short" />
+                <s:element minOccurs="1" maxOccurs="1" name="Status2" type="s:short" />
+                <s:element minOccurs="1" maxOccurs="1" name="Title" type="s:string" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType id="FolderDocumentTypeList" name="FolderDocumentTypeList">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="unbounded" name="Group">
+            <s:complexType id="Group">
+              <s:sequence>
+                <s:element minOccurs="1" maxOccurs="1" name="Description" type="s:string" />
+                <s:element minOccurs="1" maxOccurs="1" name="SortIndex" type="s:short" />
+                <s:element minOccurs="1" maxOccurs="1" name="Members">
+                  <s:complexType id="Members">
+                    <s:sequence>
+                      <s:element minOccurs="0" maxOccurs="unbounded" name="Member">
+                        <s:complexType id="Member">
+                          <s:sequence>
+                            <s:element minOccurs="1" maxOccurs="1" name="DocumentTypeId" type="s:short" />
+                            <s:element minOccurs="1" maxOccurs="1" name="Description" type="s:string" />
+                            <s:element minOccurs="1" maxOccurs="1" name="SortIndex" type="s:short" />
+                          </s:sequence>
+                        </s:complexType>
+                      </s:element>
+                    </s:sequence>
+                  </s:complexType>
+                </s:element>
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AddFolderAlertsUsingConfigurationSoapIn">
+    <wsdl:part name="parameters" element="tns:AddFolderAlertsUsingConfiguration" />
+  </wsdl:message>
+  <wsdl:message name="AddFolderAlertsUsingConfigurationSoapOut">
+    <wsdl:part name="parameters" element="tns:AddFolderAlertsUsingConfigurationResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateUsingConfigurationSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateUsingConfiguration" />
+  </wsdl:message>
+  <wsdl:message name="CreateUsingConfigurationSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateUsingConfigurationResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFolderCreateFormSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFolderCreateForm" />
+  </wsdl:message>
+  <wsdl:message name="GetFolderCreateFormSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFolderCreateFormResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFolderViewFormSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFolderViewForm" />
+  </wsdl:message>
+  <wsdl:message name="GetFolderViewFormSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFolderViewFormResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetByFolderReferenceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetByFolderReference" />
+  </wsdl:message>
+  <wsdl:message name="GetByFolderReferenceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetByFolderReferenceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentTypeListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDocumentTypeList" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentTypeListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDocumentTypeListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentsExSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDocumentsEx" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentsExSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDocumentsExResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertExSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertEx" />
+  </wsdl:message>
+  <wsdl:message name="InsertExSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertExResponse" />
+  </wsdl:message>
+  <wsdl:message name="SearchSoapIn">
+    <wsdl:part name="parameters" element="tns:Search" />
+  </wsdl:message>
+  <wsdl:message name="SearchSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCustomAttributeSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateCustomAttribute" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCustomAttributeSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateCustomAttributeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomAttributesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCustomAttributes" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomAttributesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCustomAttributesResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateSoapIn">
+    <wsdl:part name="parameters" element="tns:Create" />
+  </wsdl:message>
+  <wsdl:message name="CreateSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSoapIn">
+    <wsdl:part name="parameters" element="tns:Get" />
+  </wsdl:message>
+  <wsdl:message name="GetSoapOut">
+    <wsdl:part name="parameters" element="tns:GetResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDocuments" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDocumentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateSoapIn">
+    <wsdl:part name="parameters" element="tns:Update" />
+  </wsdl:message>
+  <wsdl:message name="UpdateSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertSoapIn">
+    <wsdl:part name="parameters" element="tns:Insert" />
+  </wsdl:message>
+  <wsdl:message name="InsertSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetNotesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNotes" />
+  </wsdl:message>
+  <wsdl:message name="GetNotesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNotesResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddFolderAlertsUsingConfigurationHttpGetIn">
+    <wsdl:part name="folderId" type="s:string" />
+    <wsdl:part name="folderConfigurationId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AddFolderAlertsUsingConfigurationHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfFolderAlertProxy" />
+  </wsdl:message>
+  <wsdl:message name="CreateUsingConfigurationHttpGetIn">
+    <wsdl:part name="folderConfigurationId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateUsingConfigurationHttpGetOut">
+    <wsdl:part name="Body" element="tns:FolderProxy" />
+  </wsdl:message>
+  <wsdl:message name="GetByFolderReferenceHttpGetIn">
+    <wsdl:part name="externalSystemId" type="s:string" />
+    <wsdl:part name="externalSystemFolderId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetByFolderReferenceHttpGetOut">
+    <wsdl:part name="Body" element="tns:FolderProxy" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCustomAttributeHttpGetIn">
+    <wsdl:part name="folderId" type="s:string" />
+    <wsdl:part name="attributeId" type="s:string" />
+    <wsdl:part name="newValue" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCustomAttributeHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="CreateHttpGetIn">
+    <wsdl:part name="documentTypeListId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateHttpGetOut">
+    <wsdl:part name="Body" element="tns:FolderProxy" />
+  </wsdl:message>
+  <wsdl:message name="GetHttpGetIn">
+    <wsdl:part name="id" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHttpGetOut">
+    <wsdl:part name="Body" element="tns:FolderProxy" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentsHttpGetIn">
+    <wsdl:part name="id" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentsHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfFolderDocumentProxy" />
+  </wsdl:message>
+  <wsdl:message name="GetNotesHttpGetIn">
+    <wsdl:part name="id" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetNotesHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfFolderNoteProxy" />
+  </wsdl:message>
+  <wsdl:message name="AddFolderAlertsUsingConfigurationHttpPostIn">
+    <wsdl:part name="folderId" type="s:string" />
+    <wsdl:part name="folderConfigurationId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AddFolderAlertsUsingConfigurationHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfFolderAlertProxy" />
+  </wsdl:message>
+  <wsdl:message name="CreateUsingConfigurationHttpPostIn">
+    <wsdl:part name="folderConfigurationId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateUsingConfigurationHttpPostOut">
+    <wsdl:part name="Body" element="tns:FolderProxy" />
+  </wsdl:message>
+  <wsdl:message name="GetByFolderReferenceHttpPostIn">
+    <wsdl:part name="externalSystemId" type="s:string" />
+    <wsdl:part name="externalSystemFolderId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetByFolderReferenceHttpPostOut">
+    <wsdl:part name="Body" element="tns:FolderProxy" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCustomAttributeHttpPostIn">
+    <wsdl:part name="folderId" type="s:string" />
+    <wsdl:part name="attributeId" type="s:string" />
+    <wsdl:part name="newValue" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCustomAttributeHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="CreateHttpPostIn">
+    <wsdl:part name="documentTypeListId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateHttpPostOut">
+    <wsdl:part name="Body" element="tns:FolderProxy" />
+  </wsdl:message>
+  <wsdl:message name="GetHttpPostIn">
+    <wsdl:part name="id" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHttpPostOut">
+    <wsdl:part name="Body" element="tns:FolderProxy" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentsHttpPostIn">
+    <wsdl:part name="id" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentsHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfFolderDocumentProxy" />
+  </wsdl:message>
+  <wsdl:message name="GetNotesHttpPostIn">
+    <wsdl:part name="id" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetNotesHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfFolderNoteProxy" />
+  </wsdl:message>
+  <wsdl:portType name="FolderServiceSoap">
+    <wsdl:operation name="AddFolderAlertsUsingConfiguration">
+      <wsdl:input message="tns:AddFolderAlertsUsingConfigurationSoapIn" />
+      <wsdl:output message="tns:AddFolderAlertsUsingConfigurationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateUsingConfiguration">
+      <wsdl:input message="tns:CreateUsingConfigurationSoapIn" />
+      <wsdl:output message="tns:CreateUsingConfigurationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFolderCreateForm">
+      <wsdl:input message="tns:GetFolderCreateFormSoapIn" />
+      <wsdl:output message="tns:GetFolderCreateFormSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFolderViewForm">
+      <wsdl:input message="tns:GetFolderViewFormSoapIn" />
+      <wsdl:output message="tns:GetFolderViewFormSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetByFolderReference">
+      <wsdl:input message="tns:GetByFolderReferenceSoapIn" />
+      <wsdl:output message="tns:GetByFolderReferenceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentTypeList">
+      <wsdl:input message="tns:GetDocumentTypeListSoapIn" />
+      <wsdl:output message="tns:GetDocumentTypeListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentsEx">
+      <wsdl:input message="tns:GetDocumentsExSoapIn" />
+      <wsdl:output message="tns:GetDocumentsExSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertEx">
+      <wsdl:input message="tns:InsertExSoapIn" />
+      <wsdl:output message="tns:InsertExSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Search">
+      <wsdl:input message="tns:SearchSoapIn" />
+      <wsdl:output message="tns:SearchSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCustomAttribute">
+      <wsdl:input message="tns:UpdateCustomAttributeSoapIn" />
+      <wsdl:output message="tns:UpdateCustomAttributeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomAttributes">
+      <wsdl:input message="tns:GetCustomAttributesSoapIn" />
+      <wsdl:output message="tns:GetCustomAttributesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Create">
+      <wsdl:input message="tns:CreateSoapIn" />
+      <wsdl:output message="tns:CreateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get">
+      <wsdl:input message="tns:GetSoapIn" />
+      <wsdl:output message="tns:GetSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocuments">
+      <wsdl:input message="tns:GetDocumentsSoapIn" />
+      <wsdl:output message="tns:GetDocumentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Update">
+      <wsdl:input message="tns:UpdateSoapIn" />
+      <wsdl:output message="tns:UpdateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Insert">
+      <wsdl:input message="tns:InsertSoapIn" />
+      <wsdl:output message="tns:InsertSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNotes">
+      <wsdl:input message="tns:GetNotesSoapIn" />
+      <wsdl:output message="tns:GetNotesSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="FolderServiceHttpGet">
+    <wsdl:operation name="AddFolderAlertsUsingConfiguration">
+      <wsdl:input message="tns:AddFolderAlertsUsingConfigurationHttpGetIn" />
+      <wsdl:output message="tns:AddFolderAlertsUsingConfigurationHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateUsingConfiguration">
+      <wsdl:input message="tns:CreateUsingConfigurationHttpGetIn" />
+      <wsdl:output message="tns:CreateUsingConfigurationHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetByFolderReference">
+      <wsdl:input message="tns:GetByFolderReferenceHttpGetIn" />
+      <wsdl:output message="tns:GetByFolderReferenceHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCustomAttribute">
+      <wsdl:input message="tns:UpdateCustomAttributeHttpGetIn" />
+      <wsdl:output message="tns:UpdateCustomAttributeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Create">
+      <wsdl:input message="tns:CreateHttpGetIn" />
+      <wsdl:output message="tns:CreateHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get">
+      <wsdl:input message="tns:GetHttpGetIn" />
+      <wsdl:output message="tns:GetHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocuments">
+      <wsdl:input message="tns:GetDocumentsHttpGetIn" />
+      <wsdl:output message="tns:GetDocumentsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNotes">
+      <wsdl:input message="tns:GetNotesHttpGetIn" />
+      <wsdl:output message="tns:GetNotesHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="FolderServiceHttpPost">
+    <wsdl:operation name="AddFolderAlertsUsingConfiguration">
+      <wsdl:input message="tns:AddFolderAlertsUsingConfigurationHttpPostIn" />
+      <wsdl:output message="tns:AddFolderAlertsUsingConfigurationHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateUsingConfiguration">
+      <wsdl:input message="tns:CreateUsingConfigurationHttpPostIn" />
+      <wsdl:output message="tns:CreateUsingConfigurationHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetByFolderReference">
+      <wsdl:input message="tns:GetByFolderReferenceHttpPostIn" />
+      <wsdl:output message="tns:GetByFolderReferenceHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCustomAttribute">
+      <wsdl:input message="tns:UpdateCustomAttributeHttpPostIn" />
+      <wsdl:output message="tns:UpdateCustomAttributeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Create">
+      <wsdl:input message="tns:CreateHttpPostIn" />
+      <wsdl:output message="tns:CreateHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get">
+      <wsdl:input message="tns:GetHttpPostIn" />
+      <wsdl:output message="tns:GetHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocuments">
+      <wsdl:input message="tns:GetDocumentsHttpPostIn" />
+      <wsdl:output message="tns:GetDocumentsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNotes">
+      <wsdl:input message="tns:GetNotesHttpPostIn" />
+      <wsdl:output message="tns:GetNotesHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="FolderServiceSoap" type="tns:FolderServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddFolderAlertsUsingConfiguration">
+      <soap:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/AddFolderAlertsUsingConfiguration" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateUsingConfiguration">
+      <soap:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/CreateUsingConfiguration" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFolderCreateForm">
+      <soap:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/GetFolderCreateForm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFolderViewForm">
+      <soap:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/GetFolderViewForm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetByFolderReference">
+      <soap:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/GetByFolderReference" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentTypeList">
+      <soap:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/GetDocumentTypeList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentsEx">
+      <soap:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/GetDocumentsEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertEx">
+      <soap:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/InsertEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Search">
+      <soap:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/Search" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCustomAttribute">
+      <soap:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/UpdateCustomAttribute" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomAttributes">
+      <soap:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/GetCustomAttributes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Create">
+      <soap:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/Create" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get">
+      <soap:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/Get" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocuments">
+      <soap:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/GetDocuments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Update">
+      <soap:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/Update" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Insert">
+      <soap:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/Insert" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNotes">
+      <soap:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/GetNotes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="FolderServiceSoap12" type="tns:FolderServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddFolderAlertsUsingConfiguration">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/AddFolderAlertsUsingConfiguration" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateUsingConfiguration">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/CreateUsingConfiguration" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFolderCreateForm">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/GetFolderCreateForm" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFolderViewForm">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/GetFolderViewForm" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetByFolderReference">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/GetByFolderReference" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentTypeList">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/GetDocumentTypeList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentsEx">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/GetDocumentsEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertEx">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/InsertEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Search">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/Search" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCustomAttribute">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/UpdateCustomAttribute" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomAttributes">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/GetCustomAttributes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Create">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/Create" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/Get" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocuments">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/GetDocuments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Update">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/Update" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Insert">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/Insert" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNotes">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Folder.wsdl/GetNotes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="FolderServiceHttpGet" type="tns:FolderServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="AddFolderAlertsUsingConfiguration">
+      <http:operation location="/AddFolderAlertsUsingConfiguration" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateUsingConfiguration">
+      <http:operation location="/CreateUsingConfiguration" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetByFolderReference">
+      <http:operation location="/GetByFolderReference" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCustomAttribute">
+      <http:operation location="/UpdateCustomAttribute" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Create">
+      <http:operation location="/Create" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get">
+      <http:operation location="/Get" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocuments">
+      <http:operation location="/GetDocuments" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNotes">
+      <http:operation location="/GetNotes" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="FolderServiceHttpPost" type="tns:FolderServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="AddFolderAlertsUsingConfiguration">
+      <http:operation location="/AddFolderAlertsUsingConfiguration" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateUsingConfiguration">
+      <http:operation location="/CreateUsingConfiguration" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetByFolderReference">
+      <http:operation location="/GetByFolderReference" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCustomAttribute">
+      <http:operation location="/UpdateCustomAttribute" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Create">
+      <http:operation location="/Create" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get">
+      <http:operation location="/Get" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocuments">
+      <http:operation location="/GetDocuments" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNotes">
+      <http:operation location="/GetNotes" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="FolderService">
+    <wsdl:port name="FolderServiceSoap" binding="tns:FolderServiceSoap">
+      <soap:address location="https://stage.blitzdocs.net/services/Folder.asmx" />
+    </wsdl:port>
+    <wsdl:port name="FolderServiceSoap12" binding="tns:FolderServiceSoap12">
+      <soap12:address location="https://stage.blitzdocs.net/services/Folder.asmx" />
+    </wsdl:port>
+    <wsdl:port name="FolderServiceHttpGet" binding="tns:FolderServiceHttpGet">
+      <http:address location="https://stage.blitzdocs.net/services/Folder.asmx" />
+    </wsdl:port>
+    <wsdl:port name="FolderServiceHttpPost" binding="tns:FolderServiceHttpPost">
+      <http:address location="https://stage.blitzdocs.net/services/Folder.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

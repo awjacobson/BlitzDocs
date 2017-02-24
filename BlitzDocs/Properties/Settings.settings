@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="BlitzDocs.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="BlitzDocs_Indexing_Indexing" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://stage.blitzdocs.net/services/Indexing.asmx</Value>
+    </Setting>
+    <Setting Name="BlitzDocs_Folder_FolderService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://stage.blitzdocs.net/services/Folder.asmx</Value>
+    </Setting>
+    <Setting Name="BlitzDocs_Document_DocumentService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://stage.blitzdocs.net/services/Document.asmx</Value>
+    </Setting>
+    <Setting Name="BlitzDocs_DocumentShareDocument_DocumentShareDocumentService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://stage.blitzdocs.net/services/DocumentShareDocument.asmx</Value>
+    </Setting>
+    <Setting Name="BlitzDocs_FolderDocument_FolderDocumentService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://stage.blitzdocs.net/services/FolderDocument.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.blitzdocs.net/Document.wsdl" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.blitzdocs.net/Document.wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.blitzdocs.net/Document.wsdl">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="Get">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetResult" type="tns:DocumentProxy" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DocumentProxy">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BlitzDocsComponentProxy">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ContentTypeId" type="s:short" />
+              <s:element minOccurs="0" maxOccurs="1" name="CreatedByLoginId" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="CreatedByUserId" type="s1:guid" />
+              <s:element minOccurs="1" maxOccurs="1" name="CreatedDate" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="FileSize" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsBlitzDocsPdf" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsLockedForEdit" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsLockedForView" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsLockedForPrint" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsInvalidPdf" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsUnlockedPdf" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="HasPageImagesCreated" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="LastUpdate" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="PageCount" type="s:short" />
+              <s:element minOccurs="1" maxOccurs="1" name="SourceType" type="tns:DocumentSourceType" />
+              <s:element minOccurs="1" maxOccurs="1" name="StorageStatus" type="tns:PrimaryDocumentStorageStatus" />
+              <s:element minOccurs="1" maxOccurs="1" name="StorageVolumeId" type="s:short" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BlitzDocsComponentProxy" abstract="true">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BlitzDataComponentProxy" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BlitzDataComponentProxy" abstract="true">
+        <s:attribute name="DataState" type="tns:DataStateType" use="required" />
+      </s:complexType>
+      <s:simpleType name="DataStateType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Deleted" />
+          <s:enumeration value="Detached" />
+          <s:enumeration value="Modified" />
+          <s:enumeration value="Unchanged" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="DocumentSourceType">
+        <s:restriction base="s:string">
+          <s:enumeration value="NotSet" />
+          <s:enumeration value="Fax" />
+          <s:enumeration value="Scan" />
+          <s:enumeration value="Upload" />
+          <s:enumeration value="Indexed" />
+          <s:enumeration value="Import" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="PrimaryDocumentStorageStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="NotSet" />
+          <s:enumeration value="Pending" />
+          <s:enumeration value="Completed" />
+          <s:enumeration value="ToBeDeleted" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="DocumentProxy" nillable="true" type="tns:DocumentProxy" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetSoapIn">
+    <wsdl:part name="parameters" element="tns:Get" />
+  </wsdl:message>
+  <wsdl:message name="GetSoapOut">
+    <wsdl:part name="parameters" element="tns:GetResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetHttpGetIn">
+    <wsdl:part name="id" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHttpGetOut">
+    <wsdl:part name="Body" element="tns:DocumentProxy" />
+  </wsdl:message>
+  <wsdl:message name="GetHttpPostIn">
+    <wsdl:part name="id" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHttpPostOut">
+    <wsdl:part name="Body" element="tns:DocumentProxy" />
+  </wsdl:message>
+  <wsdl:portType name="DocumentServiceSoap">
+    <wsdl:operation name="Get">
+      <wsdl:input message="tns:GetSoapIn" />
+      <wsdl:output message="tns:GetSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="DocumentServiceHttpGet">
+    <wsdl:operation name="Get">
+      <wsdl:input message="tns:GetHttpGetIn" />
+      <wsdl:output message="tns:GetHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="DocumentServiceHttpPost">
+    <wsdl:operation name="Get">
+      <wsdl:input message="tns:GetHttpPostIn" />
+      <wsdl:output message="tns:GetHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DocumentServiceSoap" type="tns:DocumentServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Get">
+      <soap:operation soapAction="http://www.blitzdocs.net/Document.wsdl/Get" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DocumentServiceSoap12" type="tns:DocumentServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Get">
+      <soap12:operation soapAction="http://www.blitzdocs.net/Document.wsdl/Get" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DocumentServiceHttpGet" type="tns:DocumentServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="Get">
+      <http:operation location="/Get" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DocumentServiceHttpPost" type="tns:DocumentServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="Get">
+      <http:operation location="/Get" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DocumentService">
+    <wsdl:port name="DocumentServiceSoap" binding="tns:DocumentServiceSoap">
+      <soap:address location="https://stage.blitzdocs.net/services/Document.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DocumentServiceSoap12" binding="tns:DocumentServiceSoap12">
+      <soap12:address location="https://stage.blitzdocs.net/services/Document.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DocumentServiceHttpGet" binding="tns:DocumentServiceHttpGet">
+      <http:address location="https://stage.blitzdocs.net/services/Document.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DocumentServiceHttpPost" binding="tns:DocumentServiceHttpPost">
+      <http:address location="https://stage.blitzdocs.net/services/Document.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

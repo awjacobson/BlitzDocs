@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="https://stage.blitzdocs.net/services/Indexing.asmx?wsdl" docRef="https://stage.blitzdocs.net/services/Indexing.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="https://stage.blitzdocs.net/services/Indexing.asmx" xmlns:q1="http://www.blitzdocs.net/Indexing.wsdl" binding="q1:IndexingSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="https://stage.blitzdocs.net/services/Indexing.asmx" xmlns:q2="http://www.blitzdocs.net/Indexing.wsdl" binding="q2:IndexingSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

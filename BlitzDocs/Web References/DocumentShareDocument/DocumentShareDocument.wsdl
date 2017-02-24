@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.blitzdocs.net/DocumentShareDocument.wsdl" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.blitzdocs.net/DocumentShareDocument.wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.blitzdocs.net/DocumentShareDocument.wsdl">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="UpdateStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="documentShareId" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="documentId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="status" type="tns:DocumentShareDocumentStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="DocumentShareDocumentStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="NotSet" />
+          <s:enumeration value="Pending" />
+          <s:enumeration value="Rejected" />
+          <s:enumeration value="Accepted" />
+          <s:enumeration value="Shared" />
+          <s:enumeration value="Delivered" />
+          <s:enumeration value="Errored" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="UpdateStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateStatusResult" type="tns:DocumentShareDocumentProxy" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DocumentShareDocumentProxy">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BlitzDocsComponentProxy">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="AttachmentDocumentId" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Comments" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="DateAdded" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="DateDelivered" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="Direction" type="tns:DocumentShareDirection" />
+              <s:element minOccurs="1" maxOccurs="1" name="DocumentId" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="DocumentShareId" type="s1:guid" />
+              <s:element minOccurs="1" maxOccurs="1" name="DocumentTypeId" type="s:short" />
+              <s:element minOccurs="1" maxOccurs="1" name="LastUpdate" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="Status" type="tns:DocumentShareDocumentStatus" />
+              <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BlitzDocsComponentProxy" abstract="true">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BlitzDataComponentProxy" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BlitzDataComponentProxy" abstract="true">
+        <s:attribute name="DataState" type="tns:DataStateType" use="required" />
+      </s:complexType>
+      <s:simpleType name="DataStateType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Deleted" />
+          <s:enumeration value="Detached" />
+          <s:enumeration value="Modified" />
+          <s:enumeration value="Unchanged" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="DocumentShareDirection">
+        <s:restriction base="s:string">
+          <s:enumeration value="NotSet" />
+          <s:enumeration value="SourceToDestination" />
+          <s:enumeration value="DestinationToSource" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="RetrieveDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="documentShareId" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="documentId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="destinationDocumentTypeListId" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RetrieveDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RetrieveDocumentResult" type="tns:RetrieveDocumentResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RetrieveDocumentResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Document" type="tns:DocumentShareDocumentProxy" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContentMimeType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Content" type="s:base64Binary" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AcceptAllPending">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="documentShareId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AcceptAllPendingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AcceptAllPendingResult" type="tns:ArrayOfDocumentShareDocumentProxy" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfDocumentShareDocumentProxy">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DocumentShareDocumentProxy" nillable="true" type="tns:DocumentShareDocumentProxy" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="IndexFileForShare">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="documentShareId" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="documentTypeId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="title" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="comments" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileContentType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="documentContent" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IndexFileForShareResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IndexFileForShareResult" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DocumentShareDocumentProxy" nillable="true" type="tns:DocumentShareDocumentProxy" />
+      <s:element name="RetrieveDocumentResult" nillable="true" type="tns:RetrieveDocumentResult" />
+      <s:element name="ArrayOfDocumentShareDocumentProxy" nillable="true" type="tns:ArrayOfDocumentShareDocumentProxy" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="UpdateStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateStatus" />
+  </wsdl:message>
+  <wsdl:message name="UpdateStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="RetrieveDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:RetrieveDocument" />
+  </wsdl:message>
+  <wsdl:message name="RetrieveDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:RetrieveDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="AcceptAllPendingSoapIn">
+    <wsdl:part name="parameters" element="tns:AcceptAllPending" />
+  </wsdl:message>
+  <wsdl:message name="AcceptAllPendingSoapOut">
+    <wsdl:part name="parameters" element="tns:AcceptAllPendingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IndexFileForShareSoapIn">
+    <wsdl:part name="parameters" element="tns:IndexFileForShare" />
+  </wsdl:message>
+  <wsdl:message name="IndexFileForShareSoapOut">
+    <wsdl:part name="parameters" element="tns:IndexFileForShareResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateStatusHttpGetIn">
+    <wsdl:part name="documentShareId" type="s:string" />
+    <wsdl:part name="documentId" type="s:string" />
+    <wsdl:part name="status" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateStatusHttpGetOut">
+    <wsdl:part name="Body" element="tns:DocumentShareDocumentProxy" />
+  </wsdl:message>
+  <wsdl:message name="RetrieveDocumentHttpGetIn">
+    <wsdl:part name="documentShareId" type="s:string" />
+    <wsdl:part name="documentId" type="s:string" />
+    <wsdl:part name="destinationDocumentTypeListId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RetrieveDocumentHttpGetOut">
+    <wsdl:part name="Body" element="tns:RetrieveDocumentResult" />
+  </wsdl:message>
+  <wsdl:message name="AcceptAllPendingHttpGetIn">
+    <wsdl:part name="documentShareId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AcceptAllPendingHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfDocumentShareDocumentProxy" />
+  </wsdl:message>
+  <wsdl:message name="UpdateStatusHttpPostIn">
+    <wsdl:part name="documentShareId" type="s:string" />
+    <wsdl:part name="documentId" type="s:string" />
+    <wsdl:part name="status" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateStatusHttpPostOut">
+    <wsdl:part name="Body" element="tns:DocumentShareDocumentProxy" />
+  </wsdl:message>
+  <wsdl:message name="RetrieveDocumentHttpPostIn">
+    <wsdl:part name="documentShareId" type="s:string" />
+    <wsdl:part name="documentId" type="s:string" />
+    <wsdl:part name="destinationDocumentTypeListId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RetrieveDocumentHttpPostOut">
+    <wsdl:part name="Body" element="tns:RetrieveDocumentResult" />
+  </wsdl:message>
+  <wsdl:message name="AcceptAllPendingHttpPostIn">
+    <wsdl:part name="documentShareId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AcceptAllPendingHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfDocumentShareDocumentProxy" />
+  </wsdl:message>
+  <wsdl:portType name="DocumentShareDocumentServiceSoap">
+    <wsdl:operation name="UpdateStatus">
+      <wsdl:input message="tns:UpdateStatusSoapIn" />
+      <wsdl:output message="tns:UpdateStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveDocument">
+      <wsdl:input message="tns:RetrieveDocumentSoapIn" />
+      <wsdl:output message="tns:RetrieveDocumentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AcceptAllPending">
+      <wsdl:input message="tns:AcceptAllPendingSoapIn" />
+      <wsdl:output message="tns:AcceptAllPendingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IndexFileForShare">
+      <wsdl:input message="tns:IndexFileForShareSoapIn" />
+      <wsdl:output message="tns:IndexFileForShareSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="DocumentShareDocumentServiceHttpGet">
+    <wsdl:operation name="UpdateStatus">
+      <wsdl:input message="tns:UpdateStatusHttpGetIn" />
+      <wsdl:output message="tns:UpdateStatusHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveDocument">
+      <wsdl:input message="tns:RetrieveDocumentHttpGetIn" />
+      <wsdl:output message="tns:RetrieveDocumentHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AcceptAllPending">
+      <wsdl:input message="tns:AcceptAllPendingHttpGetIn" />
+      <wsdl:output message="tns:AcceptAllPendingHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="DocumentShareDocumentServiceHttpPost">
+    <wsdl:operation name="UpdateStatus">
+      <wsdl:input message="tns:UpdateStatusHttpPostIn" />
+      <wsdl:output message="tns:UpdateStatusHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveDocument">
+      <wsdl:input message="tns:RetrieveDocumentHttpPostIn" />
+      <wsdl:output message="tns:RetrieveDocumentHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AcceptAllPending">
+      <wsdl:input message="tns:AcceptAllPendingHttpPostIn" />
+      <wsdl:output message="tns:AcceptAllPendingHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DocumentShareDocumentServiceSoap" type="tns:DocumentShareDocumentServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UpdateStatus">
+      <soap:operation soapAction="http://www.blitzdocs.net/DocumentShareDocument.wsdl/UpdateStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveDocument">
+      <soap:operation soapAction="http://www.blitzdocs.net/DocumentShareDocument.wsdl/RetrieveDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AcceptAllPending">
+      <soap:operation soapAction="http://www.blitzdocs.net/DocumentShareDocument.wsdl/AcceptAllPending" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IndexFileForShare">
+      <soap:operation soapAction="http://www.blitzdocs.net/DocumentShareDocument.wsdl/IndexFileForShare" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DocumentShareDocumentServiceSoap12" type="tns:DocumentShareDocumentServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UpdateStatus">
+      <soap12:operation soapAction="http://www.blitzdocs.net/DocumentShareDocument.wsdl/UpdateStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveDocument">
+      <soap12:operation soapAction="http://www.blitzdocs.net/DocumentShareDocument.wsdl/RetrieveDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AcceptAllPending">
+      <soap12:operation soapAction="http://www.blitzdocs.net/DocumentShareDocument.wsdl/AcceptAllPending" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IndexFileForShare">
+      <soap12:operation soapAction="http://www.blitzdocs.net/DocumentShareDocument.wsdl/IndexFileForShare" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DocumentShareDocumentServiceHttpGet" type="tns:DocumentShareDocumentServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="UpdateStatus">
+      <http:operation location="/UpdateStatus" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveDocument">
+      <http:operation location="/RetrieveDocument" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AcceptAllPending">
+      <http:operation location="/AcceptAllPending" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DocumentShareDocumentServiceHttpPost" type="tns:DocumentShareDocumentServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="UpdateStatus">
+      <http:operation location="/UpdateStatus" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveDocument">
+      <http:operation location="/RetrieveDocument" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AcceptAllPending">
+      <http:operation location="/AcceptAllPending" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DocumentShareDocumentService">
+    <wsdl:port name="DocumentShareDocumentServiceSoap" binding="tns:DocumentShareDocumentServiceSoap">
+      <soap:address location="https://stage.blitzdocs.net/services/DocumentShareDocument.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DocumentShareDocumentServiceSoap12" binding="tns:DocumentShareDocumentServiceSoap12">
+      <soap12:address location="https://stage.blitzdocs.net/services/DocumentShareDocument.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DocumentShareDocumentServiceHttpGet" binding="tns:DocumentShareDocumentServiceHttpGet">
+      <http:address location="https://stage.blitzdocs.net/services/DocumentShareDocument.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DocumentShareDocumentServiceHttpPost" binding="tns:DocumentShareDocumentServiceHttpPost">
+      <http:address location="https://stage.blitzdocs.net/services/DocumentShareDocument.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
